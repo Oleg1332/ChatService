@@ -20,7 +20,7 @@ class ChatsService() {
         return names.findLast { it.id == nameId }?.name
     }
 
-    private fun findChat(chatId: Int?): Chat? {
+     private fun findChat(chatId: Int?): Chat? {
         return chats.findLast { it.id == chatId }
     }
 
@@ -50,13 +50,13 @@ class ChatsService() {
         val chat = findChat(chatId) ?: return "Чат $chatId не существует"
         return chat.get(mesId, count)
     }
-
+    //sequence used
     private fun getUnreadChats(): String {
         val chats: List<Chat> = chats.filter { chat -> chat.messages.any { !it.read } }
         if (chats.isEmpty()) return "Нет непрочитанных сообщений"
         return ("Список чатов с непрочитанными сообщениями:\n" + getListChats(chats))
     }
-
+    //sequence used
     fun getChats(read: Boolean): String {
         if (!read) return getUnreadChats()
         val chats: List<Chat> = chats.filter { it.messages.isNotEmpty() }
