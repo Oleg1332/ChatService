@@ -54,16 +54,16 @@ class ChatsService() {
     private fun getUnreadChats(): String {
         val chats: List<Chat> = chats.filter { chat -> chat.messages.any { !it.read } }
         if (chats.isEmpty()) return "Нет непрочитанных сообщений"
-        return ("Список чатов с непрочитанными сообщениями:\n" + getListChats(chats))
+        return ("Список чатов с непрочитанными сообщениями:\n" + getListChats(chats.asSequence()))
     }
     //sequence used
     fun getChats(read: Boolean): String {
         if (!read) return getUnreadChats()
-        val chats: List<Chat> = chats.filter { it.messages.isNotEmpty() }
+        val chats: Sequence<Chat> = chats.asSequence().filter { it.messages.isNotEmpty() }
         return ("Список всех чатов:\n" + getListChats(chats))
     }
 
-    private fun getListChats(chats: List<Chat>): String {
+    private fun getListChats(chats: Sequence<Chat>): String {
         var retValue = ""
         for (chat in chats) retValue += "${getName(chat.id)}  \n"
         retValue += "Всего ${chats.count()} чатов"
