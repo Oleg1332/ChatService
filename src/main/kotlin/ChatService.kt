@@ -65,7 +65,8 @@ class ChatsService() {
 
     private fun getListChats(chats: Sequence<Chat>): String {
         var retValue = ""
-        for (chat in chats) retValue += "${getName(chat.id)}  \n"
+        val chat =  retValue.asSequence()
+            .map {  "$it  \n"}
         retValue += "Всего ${chats.count()} чатов"
         return retValue
     }
